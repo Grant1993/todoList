@@ -1,24 +1,51 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from "react";
+
+
 
 function App() {
+  const [taskList, setTaskList] = useState([
+    { task: ""},
+
+]);
+
+const handleTaskAdd = () => {
+  setTaskList([...taskList, { task: ""},])
+
+}
+
+const handleTaskRemove = (index) => {
+  const list = [...taskList];
+  list.splice(index, 1);
+  setTaskList(list);
+
+}
+
+const handleTaskChange = (e, index) => {
+  const {name, value} = e.target
+  const list = [...taskList];
+  list[index][name] = value;
+  setTaskList(list);
+}
+
   return (
-    <div className="App">
+    <form className="App" autoComplete="off">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <label htmlFor="task">Tasks</label>
+        {taskList.map((singleTask, index) => (
+        <div key={index}>
+          <input name="task" type="text" id="task" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index)}/>
+          
+          {taskList.length - 1 === index && <button type="button" onClick={handleTaskAdd}>Add Task</button>}
+
+          {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}>Remove Task</button>}
+        </div>
+        ))}
+
+
+
       </header>
-    </div>
+    </form>
   );
 }
 
