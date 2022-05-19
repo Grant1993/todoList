@@ -6,13 +6,13 @@ import React, { useState } from "react";
 function App() {
   //this is the starting state when the page loads
   const [taskList, setTaskList] = useState([
-    { task: "", check: "", status: ""},
+    { task: "", check: false, status: "Incomplete"},
 
 ]);
 
 //the event adds a new task into state
 const handleTaskAdd = () => {
-  setTaskList([...taskList, { task: "", check: "", status: ""},])
+  setTaskList([...taskList, { task: "", check: false, status: "Incomplete"},])
 }
 
 //the event removes the task selected by the button click
@@ -23,22 +23,18 @@ const handleTaskRemove = (index) => {
 }
 
 //the event checks to see if a task has been updated and stores it into state by checkign the index of the task
-const handleTaskChange = (e, index) => {
-  const {name, value} = e.target
+const handleTaskChange = (e, index, type) => {
+  const {name, value, checked} = e.target
   const list = [...taskList];
-  list[index][name] = value;
+   if (type === "task") {
+    list[index][name] = value;
+   } else {
+    list[index][name] = checked;
+   }
   setTaskList(list);
 }
 
-let checkStatus = "";
-
-console.log(taskList, setTaskList)
-
-if (taskList.check) {
-  this.checkStatus = "Complete"
-} else {
-  this.checkStatus = "Incomplete"
-}
+console.log(taskList)
 
   return (
     <form className="App" autoComplete="off">
@@ -46,9 +42,8 @@ if (taskList.check) {
         <label htmlFor="task">Tasks</label>
         {taskList.map((singleTask, index) => (
         <div key={index}>
-          <input name="task" type="text" id="task" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index)}/>
-          <label name="checkStatus" type="text" id="checkStatus" value={checkStatus} />
-          <input name="check" type="checkbox" id="check" required value={singleTask.check} onChange = {(e) => handleTaskChange(e, index)}/>
+          <input name="task" type="text" id="task" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index, "task")}/>
+          <input name="check" type="checkbox" id="check" required value={singleTask.check} onChange = {(e) => handleTaskChange(e, index, "checkbox")}/>
           <div>
             {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}>Remove Task</button>}
           </div>
