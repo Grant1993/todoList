@@ -29,6 +29,9 @@ const handleTaskChange = (e, index) => {
   list[index][name] = value;
   setTaskList(list);
 }
+
+let checkStatus = "";
+
 console.log(taskList, setTaskList)
 
 if (taskList.check) {
@@ -44,8 +47,8 @@ if (taskList.check) {
         {taskList.map((singleTask, index) => (
         <div key={index}>
           <input name="task" type="text" id="task" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index)}/>
-          <label name="checkStatus" type="text" id="checkStatus" value={this.checkStatus} />
-          <input name="check" type="checkbox" id="check" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index)}/>
+          <label name="checkStatus" type="text" id="checkStatus" value={checkStatus} />
+          <input name="check" type="checkbox" id="check" required value={singleTask.check} onChange = {(e) => handleTaskChange(e, index)}/>
           <div>
             {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}>Remove Task</button>}
           </div>
@@ -54,9 +57,6 @@ if (taskList.check) {
           </div>
         </div>
         ))}
-
-
-
       </header>
     </form>
   );
