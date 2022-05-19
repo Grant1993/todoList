@@ -6,13 +6,13 @@ import React, { useState } from "react";
 function App() {
   //this is the starting state when the page loads
   const [taskList, setTaskList] = useState([
-    { task: ""},{check: ""},
+    { task: "", check: "", status: ""},
 
 ]);
 
 //the event adds a new task into state
 const handleTaskAdd = () => {
-  setTaskList([...taskList, { task: ""},{check: ""},])
+  setTaskList([...taskList, { task: "", check: "", status: ""},])
 }
 
 //the event removes the task selected by the button click
@@ -38,11 +38,14 @@ console.log(taskList, setTaskList)
         {taskList.map((singleTask, index) => (
         <div key={index}>
           <input name="task" type="text" id="task" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index)}/>
-          <input name="check" type="checkbox" id="check" required value={singleTask.check} onChange = {(e) => handleTaskChange(e, index)}/>
-          
-          {taskList.length - 1 === index && <button type="button" onClick={handleTaskAdd}>Add Task</button>}
-
-          {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}>Remove Task</button>}
+          {/* <label name="status" type="text" id="status" text={status} /> */}
+          <input name="check" type="checkbox" id="check" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index)}/>
+          <div>
+            {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}>Remove Task</button>}
+          </div>
+          <div>
+            {taskList.length - 1 === index && <button type="button" onClick={handleTaskAdd}>Add Task</button>}
+          </div>
         </div>
         ))}
 
