@@ -31,6 +31,12 @@ const handleTaskChange = (e, index) => {
 }
 console.log(taskList, setTaskList)
 
+if (taskList.check) {
+  this.checkStatus = "Complete"
+} else {
+  this.checkStatus = "Incomplete"
+}
+
   return (
     <form className="App" autoComplete="off">
       <header className="App-header">
@@ -38,7 +44,7 @@ console.log(taskList, setTaskList)
         {taskList.map((singleTask, index) => (
         <div key={index}>
           <input name="task" type="text" id="task" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index)}/>
-          {/* <label name="status" type="text" id="status" text={status} /> */}
+          <label name="checkStatus" type="text" id="checkStatus" value={this.checkStatus} />
           <input name="check" type="checkbox" id="check" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index)}/>
           <div>
             {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}>Remove Task</button>}
