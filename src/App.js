@@ -6,13 +6,13 @@ import React, { useState } from "react";
 function App() {
   //this is the starting state when the page loads
   const [taskList, setTaskList] = useState([
-    { task: "", check: false, status: "Incomplete"},
+    { task: "", check: false, },
 
 ]);
 
 //the event adds a new task into state
 const handleTaskAdd = () => {
-  setTaskList([...taskList, { task: "", check: false, status: "Incomplete"},])
+  setTaskList([...taskList, { task: "", check: false, },])
 }
 
 //the event removes the task selected by the button click
@@ -26,11 +26,16 @@ const handleTaskRemove = (index) => {
 const handleTaskChange = (e, index, type) => {
   const {name, value, checked} = e.target
   const list = [...taskList];
+  //sthe some method will check if a task already exists with the same name
+  if (!list.some(t => t.task === value)) {
    if (type === "task") {
     list[index][name] = value;
    } else {
     list[index][name] = checked;
    }
+  } else {
+    alert("Task already exists")
+  }
   setTaskList(list);
 }
 
