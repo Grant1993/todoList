@@ -12,7 +12,11 @@ function App() {
 
 //the event adds a new task into state
 const handleTaskAdd = () => {
-  setTaskList([...taskList, { task: "", check: false, },])
+  if(!taskList.some(t => t.task === "")) {
+    setTaskList([...taskList, { task: "", check: false, },])
+  } else {
+    alert("Please fill in the empty task")
+  }
 }
 
 //the event removes the task selected by the button click
