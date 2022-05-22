@@ -32,10 +32,14 @@ const handleTaskChange = (e, index, type) => {
   const list = [...taskList];
   //sthe some method will check if a task already exists with the same name
   if (!list.some(t => t.task === value)) {
+    localStorage.getItem(name, value)
+    localStorage.getItem(name, checked)
    if (type === "task") {
     list[index][name] = value;
+    localStorage.setItem(name, value)
    } else {
     list[index][name] = checked;
+    localStorage.setItem(name, checked)
    }
   } else {
     alert("Task already exists")
