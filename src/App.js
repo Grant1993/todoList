@@ -14,8 +14,6 @@ function App() {
 
 //the event adds a new task into state
 const handleTaskAdd = () => {
-  let addTask = document.getElementById('addTask');
-  taskList.task.push(addTask.value)
   setTaskList([...taskList, { task: "", check: false, },])
   // if(!taskList.some(t => t.task === "")) {
     
@@ -23,6 +21,15 @@ const handleTaskAdd = () => {
   //   alert("Please fill in the empty task")
   // }
 }
+
+const handleTaskInput = (e, index) => {
+  let addTask = document.getElementById('addTask');
+  const {name, value} = e.target
+  const list = [...taskList];
+    list[index][name] = addTask.value = value;
+  setTaskList(list);
+}
+
 
 //the event removes the task selected by the button click
 const handleTaskRemove = (index) => {
@@ -35,7 +42,7 @@ const handleTaskRemove = (index) => {
 const handleTaskChange = (e, index, type) => {
   const {name, value, checked} = e.target
   const list = [...taskList];
-  //sthe some method will check if a task already exists with the same name
+  //the some method will check if a task already exists with the same name
   if (!list.some(t => t.task === value)) {
    if (type === "task") {
     list[index][name] = value;
@@ -64,7 +71,7 @@ console.log(taskList)
             {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}>Remove Task</button>}
           </div>
           <div>
-            <input name="addTask" type="text" id="addTask"/>
+            <input name="addTask" type="text" id="addTask" onChange = {(e) => handleTaskInput(e, index)}/>
             {taskList.length - 1 === index && <button type="button" onClick={handleTaskAdd}>Add Task</button>}
           </div>
         </div>
