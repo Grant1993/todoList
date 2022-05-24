@@ -1,35 +1,34 @@
 import './App.css';
-import React, { useState } from "react";
-
+import { useState } from "react";
+import { FaTimes } from 'react-icons/fa';
+import Button from './components/Button'
 
 
 function App() {
   //this is the starting state when the page loads
   const [taskList, setTaskList] = useState([
     { 
-      task: "", check: false, 
+      task: "", 
+      check: false, 
     },
-
-]);
+  ]);
+  const [addTask, setAddTask] = useState('')
+  const [complete, setComplete] = useState(false)
 
 //the event adds a new task into state
-const handleTaskAdd = () => {
-  setTaskList([...taskList, { task: "", check: false, },])
+const handleTaskAdd = (addTask, complete) => {
+  const addingTask = [...addTask];
+  //const checkedTask = [...complete];
+  console.log(addingTask)
+  //setTaskList(addingTask);
+  //setTaskList(checkedTask);
+  //setTaskList([...taskList, { task: "", check: false, },])
   // if(!taskList.some(t => t.task === "")) {
     
   // } else {
   //   alert("Please fill in the empty task")
   // }
 }
-
-const handleTaskInput = (e, index) => {
-  let addTask = document.getElementById('addTask');
-  const {name, value} = e.target
-  const list = [...taskList];
-    list[index][name] = addTask.value = value;
-  setTaskList(list);
-}
-
 
 //the event removes the task selected by the button click
 const handleTaskRemove = (index) => {
@@ -56,26 +55,30 @@ const handleTaskChange = (e, index, type) => {
 }
 
 console.log(taskList)
+console.log(addTask)
+console.log(complete)
 
   return (
     <form className="App" autoComplete="off">
       <header className="App-header">
         <label htmlFor="task">Tasks</label>
+
         {taskList.map((singleTask, index) => (
         <div key={index}>
           <ul>
-            <li><label name="task" type="text" id="task" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index, "task")}>{singleTask.task}</label><input name="check" type="checkbox" id="check" required value={singleTask.check} onChange = {(e) => handleTaskChange(e, index, "checkbox")}/></li>
+            <li><label name="task" type="text" id="task" required value={singleTask.addTask} onChange = {(e) => handleTaskChange(e, index, "task")}>{singleTask.task}</label><input name="check" type="checkbox" id="check" required value={complete} onChange = {(e) => setComplete(e.currentTarget.checked)}/></li>
           </ul>
           
           <div>
-            {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}>Remove Task</button>}
+            {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}><FaTimes style={{color: 'red', cursor: 'pointer'}} /></button>}
           </div>
-          <div>
-            <input name="addTask" type="text" id="addTask" onChange = {(e) => handleTaskInput(e, index)}/>
-            {taskList.length - 1 === index && <button type="button" onClick={handleTaskAdd}>Add Task</button>}
-          </div>
+          <input name="addTask" type="text" id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
         </div>
         ))}
+          <div>
+            
+            <Button text='Add' type="button" onClick = {handleTaskAdd(addTask, complete)} />
+          </div>
       </header>
     </form>
   );
