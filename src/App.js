@@ -16,16 +16,9 @@ function App() {
   const [complete, setComplete] = useState(false)
 
 //the event adds a new task into state
-const handleTaskAdd = (setAddTask, setComplete) => {
-  const newTask = ([
-    { 
-      task: setAddTask, 
-      check: false, 
-    },
-  ]);
-  setTaskList(newTask);
-  //setTaskList(addingTask);
-  //setTaskList(checkedTask);
+const handleTaskAdd = (setAddTask) => {
+  setTaskList([...taskList, {task: setAddTask, check: false, },]);
+  
   //setTaskList([...taskList, { task: "", check: false, },])
   // if(!taskList.some(t => t.task === "")) {
     
@@ -58,9 +51,6 @@ const handleTaskRemove = (index) => {
 //   setTaskList(list);
 // }
 
-console.log(setAddTask)
-console.log(setComplete)
-console.log(setTaskList)
 
   return (
     <form className="App" autoComplete="off">
@@ -69,7 +59,7 @@ console.log(setTaskList)
 
         {taskList.map((singleTask, index) => (
         <div key={index}>
-          <ul style={{padding: "0px"}}>
+          <ul style={{padding: "0px", width: "200px"}}>
             <li style={{listStyle: "none", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
               <label name="task" type="text" 
               style={{marginRight: "20px", marginLeft:"5px", fontFamily: 'Arial', fontSize: '21px', float:'left', paddingTop: "8px"}} 
@@ -81,12 +71,11 @@ console.log(setTaskList)
           <div>
             {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}><FaTimes style={{color: 'red', cursor: 'pointer'}} /></button>}
           </div>
-          <input name="addTask" type="text" id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
         </div>
         ))}
           <div>
-            
-            <Button text='Add' type="button" onClick={(e) => handleTaskAdd(addTask, complete)} />
+          <input name="addTask" type="text" id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
+            <Button text='Add' type="button" onClick={() => handleTaskAdd(addTask, complete)} />
           </div>
       </header>
     </form>
