@@ -17,9 +17,14 @@ function App() {
 
 //the event adds a new task into state
 const handleTaskAdd = (addTask, complete) => {
-  const addingTask = [...addTask];
-  //const checkedTask = [...complete];
-  console.log(addingTask)
+  console.log('click', addTask, complete)
+  const newTask = ([
+    { 
+      task: addTask, 
+      check: complete, 
+    },
+  ]);
+  setTaskList(newTask);
   //setTaskList(addingTask);
   //setTaskList(checkedTask);
   //setTaskList([...taskList, { task: "", check: false, },])
@@ -66,7 +71,7 @@ console.log(complete)
         {taskList.map((singleTask, index) => (
         <div key={index}>
           <ul>
-            <li><label name="task" type="text" id="task" required value={singleTask.addTask} onChange = {(e) => handleTaskChange(e, index, "task")}>{singleTask.task}</label><input name="check" type="checkbox" id="check" required value={complete} onChange = {(e) => setComplete(e.currentTarget.checked)}/></li>
+            <li><label name="task" type="text" id="task" required value={singleTask.task}>{singleTask.task}</label><input name="check" type="checkbox" id="check" required value={complete} onChange = {(e) => setComplete(e.currentTarget.checked)}/></li>
           </ul>
           
           <div>
@@ -77,7 +82,7 @@ console.log(complete)
         ))}
           <div>
             
-            <Button text='Add' type="button" onClick = {handleTaskAdd(addTask, complete)} />
+            <Button text='Add' type="button" onClick={(e) => handleTaskAdd(addTask, complete)} />
           </div>
       </header>
     </form>
