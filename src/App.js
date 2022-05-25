@@ -16,12 +16,11 @@ function App() {
   const [complete, setComplete] = useState(false)
 
 //the event adds a new task into state
-const handleTaskAdd = (addTask, complete) => {
-  console.log('click', addTask, complete)
+const handleTaskAdd = (setAddTask, setComplete) => {
   const newTask = ([
     { 
-      task: addTask, 
-      check: complete, 
+      task: setAddTask, 
+      check: false, 
     },
   ]);
   setTaskList(newTask);
@@ -43,25 +42,25 @@ const handleTaskRemove = (index) => {
 }
 
 //the event checks to see if a task has been updated and stores it into state by checkign the index of the task
-const handleTaskChange = (e, index, type) => {
-  const {name, value, checked} = e.target
-  const list = [...taskList];
-  //the some method will check if a task already exists with the same name
-  if (!list.some(t => t.task === value)) {
-   if (type === "task") {
-    list[index][name] = value;
-   } else {
-    list[index][name] = checked;
-   }
-  } else {
-    alert("Task already exists")
-  }
-  setTaskList(list);
-}
+// const handleTaskChange = (e, index, type) => {
+//   const {name, value, checked} = e.target
+//   const list = [...taskList];
+//   //the some method will check if a task already exists with the same name
+//   if (!list.some(t => t.task === value)) {
+//    if (type === "task") {
+//     list[index][name] = value;
+//    } else {
+//     list[index][name] = checked;
+//    }
+//   } else {
+//     alert("Task already exists")
+//   }
+//   setTaskList(list);
+// }
 
-console.log(taskList)
-console.log(addTask)
-console.log(complete)
+console.log(setAddTask)
+console.log(setComplete)
+console.log(setTaskList)
 
   return (
     <form className="App" autoComplete="off">
@@ -70,8 +69,13 @@ console.log(complete)
 
         {taskList.map((singleTask, index) => (
         <div key={index}>
-          <ul>
-            <li><label name="task" type="text" id="task" required value={singleTask.task}>{singleTask.task}</label><input name="check" type="checkbox" id="check" required value={complete} onChange = {(e) => setComplete(e.currentTarget.checked)}/></li>
+          <ul style={{padding: "0px"}}>
+            <li style={{listStyle: "none", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
+              <label name="task" type="text" 
+              style={{marginRight: "20px", marginLeft:"5px", fontFamily: 'Arial', fontSize: '21px', float:'left', paddingTop: "8px"}} 
+              id="task" required value={singleTask.task}>{singleTask.task}</label>
+              <input name="check" type="checkbox" style={{}} id="check" required value={complete} onChange = {(e) => setComplete(e.currentTarget.checked)}/>
+            </li>
           </ul>
           
           <div>
