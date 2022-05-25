@@ -6,25 +6,20 @@ import Button from './components/Button'
 
 function App() {
   //this is the starting state when the page loads
-  const [taskList, setTaskList] = useState([
-    { 
-      task: "", 
-      check: false, 
-    },
-  ]);
+  const [taskList, setTaskList] = useState([]);
   const [addTask, setAddTask] = useState('')
   const [complete, setComplete] = useState(false)
 
 //the event adds a new task into state
 const handleTaskAdd = (setAddTask) => {
   setTaskList([...taskList, {task: setAddTask, check: false, },]);
-  
-  //setTaskList([...taskList, { task: "", check: false, },])
-  // if(!taskList.some(t => t.task === "")) {
-    
-  // } else {
-  //   alert("Please fill in the empty task")
-  // }
+
+  if(!taskList.some(t => t.task === "")) {
+
+
+  } else {
+
+  }
 }
 
 //the event removes the task selected by the button click
@@ -51,6 +46,9 @@ const handleTaskRemove = (index) => {
 //   setTaskList(list);
 // }
 
+console.log(addTask.e)
+
+let blankInput = true;
 
   return (
     <form className="App" autoComplete="off">
@@ -75,7 +73,8 @@ const handleTaskRemove = (index) => {
         ))}
           <div>
           <input name="addTask" type="text" id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
-            <Button text='Add' type="button" onClick={() => handleTaskAdd(addTask, complete)} />
+          <label id="blankInputMessage" hidden={blankInput}>Please enter a task</label>
+            <Button text='Add' type="button"  onClick={addTask === "" ? blankInput = false : () => handleTaskAdd(addTask, complete)} />
           </div>
       </header>
     </form>
