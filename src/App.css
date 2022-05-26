@@ -67,5 +67,8 @@
 .Remove {
   color: red; 
   cursor: pointer;
-  display: inline;
+  float: right;
+  background-color: lightGrey;
+  border: none;
+  margin-top: 14px;
 }

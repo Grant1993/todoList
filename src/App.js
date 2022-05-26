@@ -63,12 +63,10 @@ console.log(setComplete.check)
               className={complete === true ? "TaskLabelCheck" : "TaskLabel"}
               id="task" required value={singleTask.task}>{singleTask.task}</label>
               <div>
+              {taskList.length > 1 && <button type="button" className='Remove' onClick={() => handleTaskRemove(index)}><FaTimes /></button>}
               <input name="check" type="checkbox" className='checkmark' id="check" required value={complete} onChange = {(e) => setComplete(e.currentTarget.checked)}/>
               </div>
             </li>
-            <div>
-                {taskList.length > 1 && <button type="button" className='Remove' onClick={() => handleTaskRemove(index)}><FaTimes /></button>}
-            </div>
           </ul>
           
         </div>
