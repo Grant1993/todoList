@@ -58,17 +58,19 @@ console.log(setComplete.check)
         {taskList.map((singleTask, index) => (
         <div key={index}>
           <ul style={{padding: "0px", width: "200px"}}>
-            <li style={{listStyle: "none", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
+            <li style={{listStyle: "none", height: "45px", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
               <label name="task" type="text" 
               className={complete === true ? "TaskLabelCheck" : "TaskLabel"}
               id="task" required value={singleTask.task}>{singleTask.task}</label>
+              <div>
               <input name="check" type="checkbox" className='checkmark' id="check" required value={complete} onChange = {(e) => setComplete(e.currentTarget.checked)}/>
+              </div>
             </li>
+            <div>
+                {taskList.length > 1 && <button type="button" className='Remove' onClick={() => handleTaskRemove(index)}><FaTimes /></button>}
+            </div>
           </ul>
           
-          <div>
-            {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}><FaTimes style={{color: 'red', cursor: 'pointer'}} /></button>}
-          </div>
         </div>
         ))}
           <div>
