@@ -57,7 +57,7 @@ console.log(setComplete.check)
 
         {taskList.map((singleTask, index) => (
         <div key={index}>
-          <ul style={{padding: "0px", width: "200px"}}>
+          <ul style={{padding: "0px", margin: "8px", width: "200px"}}>
             <li style={{listStyle: "none", height: "45px", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
               <label name="task" type="text" 
               className={complete === true ? "TaskLabelCheck" : "TaskLabel"}
@@ -71,7 +71,7 @@ console.log(setComplete.check)
           
         </div>
         ))}
-          <div>
+          <div className='TaskForm'>
           <input name="addTask" type="text" required id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
           <br />
           <label id="blankInputMessage" style={{display: blankInput}}>Please enter a task</label>
