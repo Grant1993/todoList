@@ -22,6 +22,11 @@ const handleTaskRemove = (index) => {
   setTaskList(list);
 }
 
+const handleChecked = () => {
+  const list = [...complete];
+  setComplete(list);
+}
+
 //the event checks to see if a task has been updated and stores it into state by checkign the index of the task
 // const handleTaskChange = (e, index, type) => {
 //   const {name, value, checked} = e.target
@@ -41,14 +46,14 @@ const handleTaskRemove = (index) => {
 
 let blankInput = "";
 
-if (!addTask) {
+if (addTask.length < 1 && document.getElementById('add').onClick) {
   blankInput = "inline";
 } else {
   blankInput = "none"
 }
 
-console.log(complete)
-console.log(setComplete.check)
+console.log(handleTaskAdd.click)
+console.log()
 
   return (
     <form className="App" autoComplete="off">
@@ -57,14 +62,14 @@ console.log(setComplete.check)
 
         {taskList.map((singleTask, index) => (
         <div key={index}>
-          <ul style={{padding: "0px", margin: "8px", width: "200px"}}>
+          <ul style={{padding: "0px", margin: "8px", width: "250px"}}>
             <li style={{listStyle: "none", height: "45px", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
               <label name="task" type="text" 
               className={complete === true ? "TaskLabelCheck" : "TaskLabel"}
               id="task" required value={singleTask.task}>{singleTask.task}</label>
               <div>
               {taskList.length > 1 && <button type="button" className='Remove' onClick={() => handleTaskRemove(index)}><FaTimes /></button>}
-              <input name="check" type="checkbox" className='checkmark' id="check" required value={complete} onChange = {(e) => setComplete(e.currentTarget.checked)}/>
+              <input name="check" type="checkbox" className='checkmark' id="check" required value={complete} onChange = {(e) => setComplete(e.target.checked)}/>
               </div>
             </li>
           </ul>
@@ -75,7 +80,7 @@ console.log(setComplete.check)
           <input name="addTask" type="text" required id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
           <br />
           <label id="blankInputMessage" style={{display: blankInput}}>Please enter a task</label>
-            <Button id="add" text='Add' type="button" onClick={!addTask ? '' : () => handleTaskAdd(addTask)} />
+            <Button id="add" text='Add' type="button" onClick={() => handleTaskAdd(addTask)} />
           </div>
       </header>
     </form>
