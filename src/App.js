@@ -7,8 +7,10 @@ import Button from './components/Button'
 function App() {
   //this is the starting state when the page loads
   const [taskList, setTaskList] = useState([]);
-  const [addTask, setAddTask] = useState('')
-  const [complete, setComplete] = useState(false)
+  const [addTask, setAddTask] = useState('');
+  const [complete, setComplete] = useState(false);
+  const [search, setSearch] = useState('');
+  const [searchParam] = useState(["name"]);
 
 //the event adds a new task into state
 const handleTaskAdd = (setAddTask) => {
@@ -22,10 +24,20 @@ const handleTaskRemove = (index) => {
   setTaskList(list);
 }
 
-const handleChecked = () => {
-  const list = [...complete];
-  setComplete(list);
-}
+function searchTasks(setAddTask) {
+  return setAddTask.filter((addTask) => {
+    return searchParam.some((newItem) => {
+        return (
+          addTask[newItem]
+                .toString()
+                .toLowerCase()
+                .indexOf(search.toLowerCase()) > -1
+                );
+              });
+          });
+      }
+
+      
 
 //the event checks to see if a task has been updated and stores it into state by checkign the index of the task
 // const handleTaskChange = (e, index, type) => {
@@ -44,22 +56,13 @@ const handleChecked = () => {
 //   setTaskList(list);
 // }
 
-let blankInput = "";
-
-if (addTask.length < 1 && document.getElementById('add').onClick) {
-  blankInput = "inline";
-} else {
-  blankInput = "none"
-}
-
-console.log(handleTaskAdd.click)
-console.log()
 
   return (
     <form className="App" autoComplete="off">
       <header className="App-header">
         <label htmlFor="task">Tasks</label>
-
+        <input type="search" placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
+        {searchTasks(setAddTask).map((addTask) => ( <li> {addTask} </li> ))}
         {taskList.map((singleTask, index) => (
         <div key={index}>
           <ul style={{padding: "0px", margin: "8px", width: "250px"}}>
@@ -79,8 +82,8 @@ console.log()
           <div className='TaskForm'>
           <input name="addTask" type="text" required id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
           <br />
-          <label id="blankInputMessage" style={{display: blankInput}}>Please enter a task</label>
-            <Button id="add" text='Add' type="button" onClick={() => handleTaskAdd(addTask)} />
+          <label id="blankInputMessage" style={{display: taskList.length < 1 ? 'inline' : 'none'}}>Please enter a task</label>
+            <Button id="add" text='Add' type="button" onClick={!addTask ? '' : () => handleTaskAdd(addTask)} />
           </div>
       </header>
     </form>
