@@ -46,7 +46,7 @@
   padding-top: 8px;
 }
 
-.TaskLabelCheck{
+.TaskLabelCheck + input[type=checkbox]:checked{
   text-decoration: line-through;
   margin-right: 20px;
   margin-left:5px;

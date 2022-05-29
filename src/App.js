@@ -10,7 +10,7 @@ function App() {
   const [addTask, setAddTask] = useState('');
   const [complete, setComplete] = useState(false);
   const [search, setSearch] = useState('');
-  const [searchParam] = useState(["name"]);
+  const [searchParam] = useState(["task"]);
 
 //the event adds a new task into state
 const handleTaskAdd = (setAddTask) => {
@@ -24,14 +24,11 @@ const handleTaskRemove = (index) => {
   setTaskList(list);
 }
 
-function searchTasks(setAddTask) {
-  return setAddTask.filter((addTask) => {
+function searchTasks(taskList) {
+  return taskList.filter((singletask) => {
     return searchParam.some((newItem) => {
         return (
-          addTask[newItem]
-                .toString()
-                .toLowerCase()
-                .indexOf(search.toLowerCase()) > -1
+          singletask[newItem] > -1
                 );
               });
           });
@@ -62,11 +59,10 @@ function searchTasks(setAddTask) {
       <header className="App-header">
         <label htmlFor="task">Tasks</label>
         <input type="search" placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
-        {searchTasks(setAddTask).map((addTask) => ( <li> {addTask} </li> ))}
-        {taskList.map((singleTask, index) => (
+        {searchTasks(taskList).map((singleTask, index) => (
         <div key={index}>
           <ul style={{padding: "0px", margin: "8px", width: "250px"}}>
-            <li style={{listStyle: "none", height: "45px", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
+          <li style={{listStyle: "none", height: "45px", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
               <label name="task" type="text" 
               className={complete === true ? "TaskLabelCheck" : "TaskLabel"}
               id="task" required value={singleTask.task}>{singleTask.task}</label>
