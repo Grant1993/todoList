@@ -46,14 +46,11 @@ const handleChecked = () => {
 
 let blankInput = "";
 
-if (addTask.length < 1 && document.getElementById('add').onClick) {
+if (addTask.length < 1) {
   blankInput = "inline";
 } else {
   blankInput = "none"
 }
-
-console.log(handleTaskAdd.click)
-console.log()
 
   return (
     <form className="App" autoComplete="off">
@@ -64,7 +61,7 @@ console.log()
         <div key={index}>
           <ul style={{padding: "0px", margin: "8px", width: "250px"}}>
             <li style={{listStyle: "none", height: "45px", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
-              <label name="task" type="text" 
+              <label name="task" type="text" for="check"
               className={complete === true ? "TaskLabelCheck" : "TaskLabel"}
               id="task" required value={singleTask.task}>{singleTask.task}</label>
               <div>

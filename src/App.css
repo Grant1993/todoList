@@ -44,9 +44,9 @@
   font-size: 21px;
   float: left;
   padding-top: 8px;
-}
+} 
 
-.TaskLabelCheck{
+ .TaskLabelCheck {
   text-decoration: line-through;
   margin-right: 20px;
   margin-left:5px;
