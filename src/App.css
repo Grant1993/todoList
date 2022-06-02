@@ -46,7 +46,7 @@
   padding-top: 8px;
 }
 
-.TaskLabelCheck{
+.TaskLabelCheck {
   text-decoration: line-through;
   margin-right: 20px;
   margin-left:5px;
@@ -75,4 +75,12 @@
 
 .TaskForm {
   position: left;
+}
+
+.searchBox {
+  width: 260px;
+  border: 1px solid #555;
+  display: block;
+  padding: 9px 4px 9px 40px;
+  margin-bottom: 25px;
 }
