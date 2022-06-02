@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from "react";
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaSearchengin } from 'react-icons/fa';
 import Button from './components/Button'
 
 
@@ -10,7 +10,7 @@ function App() {
   const [addTask, setAddTask] = useState('');
   const [complete, setComplete] = useState(false);
   const [search, setSearch] = useState('');
-  const [searchParam] = useState(["task"]);
+  const [searchParam] = useState(["task", "check"]);
 
 //the event adds a new task into state
 const handleTaskAdd = (setAddTask) => {
@@ -24,17 +24,24 @@ const handleTaskRemove = (index) => {
   setTaskList(list);
 }
 
+console.log(taskList)
+
 function searchTasks(taskList) {
   return taskList.filter((singletask) => {
+    console.log(taskList)
     return searchParam.some((newItem) => {
+      console.log(searchParam, newItem)
         return (
-          singletask[newItem] > -1
+          singletask[newItem]
+            .toString()
+            .toLowerCase()
+            .indexOf(search.toLowerCase()) > -1
                 );
               });
           });
       }
 
-      
+      console.log(searchTasks(taskList))   
 
 //the event checks to see if a task has been updated and stores it into state by checkign the index of the task
 // const handleTaskChange = (e, index, type) => {
@@ -58,7 +65,7 @@ function searchTasks(taskList) {
     <form className="App" autoComplete="off">
       <header className="App-header">
         <label htmlFor="task">Tasks</label>
-        <input type="search" placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
+        <input className='searchBox' style={{background: <FaSearchengin />}} type="search" placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
         {searchTasks(taskList).map((singleTask, index) => (
         <div key={index}>
           <ul style={{padding: "0px", margin: "8px", width: "250px"}}>
