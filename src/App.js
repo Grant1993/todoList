@@ -25,8 +25,6 @@ const handleTaskRemove = (index) => {
   setTaskList(list);
 }
 
-console.log(taskList)
-
 function searchTasks(taskList) {
   return taskList.filter((singletask) => {
     console.log(taskList)
@@ -41,8 +39,6 @@ function searchTasks(taskList) {
               });
           });
       }
-
-      console.log(searchTasks(taskList))   
 
 //the event checks to see if a task has been updated and stores it into state by checkign the index of the task
 // const handleTaskChange = (e, index, type) => {
@@ -86,7 +82,7 @@ function searchTasks(taskList) {
           <div className='TaskForm'>
           <input name="addTask" type="text" required id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
           <br />
-          <label id="blankInputMessage" style={{display: taskList.length < 1 ? 'inline' : 'none'}}>Please enter a task</label>
+          {/* <label id="blankInputMessage" style={{display: taskList.length < 1 ? 'inline' : 'none'}}>Please enter a task</label> */}
             <Button id="add" text='Add' type="button" onClick={!addTask ? '' : () => handleTaskAdd(addTask)} />
           </div>
       </header>
