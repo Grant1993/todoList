@@ -13,8 +13,9 @@ function App() {
   const [searchParam] = useState(["task", "check"]);
 
 //the event adds a new task into state
-const handleTaskAdd = (setAddTask) => {
-  setTaskList([...taskList, {task: setAddTask, check: false, },]);
+const handleTaskAdd = (addTask) => {
+  setTaskList([...taskList, {task: addTask, check: false, },]);
+  setAddTask("")
 }
 
 //the event removes the task selected by the button click
