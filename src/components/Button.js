@@ -3,7 +3,7 @@ const Button = ({ text, ...rest }) => {
     <button 
     {...rest}
     type="button" 
-    style={{  borderRadius: '10%', maxWidth: 'auto', width: '80px', height: '30px'}} >
+    style={{  borderRadius: '10%', maxWidth: 'auto', width: '80px', height: '30px', cursor: "pointer"}} >
         {text}
     </button>
   )
