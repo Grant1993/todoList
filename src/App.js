@@ -14,8 +14,17 @@ function App() {
 
 //the event adds a new task into state
 const handleTaskAdd = (addTask) => {
-  setTaskList([...taskList, {task: addTask, check: false, },]);
-  setAddTask("")
+  let list = taskList
+  function taskAssign() {
+    setTaskList([...taskList, {task: addTask, check: false, },]);
+    setAddTask("") 
+  }
+
+  if (!list.some(t => t.task === addTask)) {
+    taskAssign()
+  } else {
+    console.log("Task is already exists")
+  }
 }
 
 //the event removes the task selected by the button click
@@ -27,9 +36,7 @@ const handleTaskRemove = (index) => {
 
 function searchTasks(taskList) {
   return taskList.filter((singletask) => {
-    console.log(taskList)
     return searchParam.some((newItem) => {
-      console.log(searchParam, newItem)
         return (
           singletask[newItem]
             .toString()
@@ -82,7 +89,7 @@ function searchTasks(taskList) {
           <div className='TaskForm'>
           <input name="addTask" type="text" required id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
           <br />
-          {/* <label id="blankInputMessage" style={{display: taskList.length < 1 ? 'inline' : 'none'}}>Please enter a task</label> */}
+          {/* {<label id="blankInputMessage" style={{display: taskList.length < 1 ? 'inline' : 'none'}}>{}</label>} */}
             <Button id="add" text='Add' type="button" onClick={!addTask ? '' : () => handleTaskAdd(addTask)} />
           </div>
       </header>
