@@ -1,21 +1,29 @@
 import './App.css';
-import React, { useState } from "react";
-
+import { useState } from "react";
+import { FaTimes, FaSearchengin } from 'react-icons/fa';
+import Button from './components/Button'
 
 
 function App() {
   //this is the starting state when the page loads
-  const [taskList, setTaskList] = useState([
-    { task: "", check: false, },
-
-]);
+  const [taskList, setTaskList] = useState([]);
+  const [addTask, setAddTask] = useState('');
+  const [complete, setComplete] = useState(false);
+  const [search, setSearch] = useState('');
+  const [searchParam] = useState(["task", "check"]);
 
 //the event adds a new task into state
-const handleTaskAdd = () => {
-  if(!taskList.some(t => t.task === "")) {
-    setTaskList([...taskList, { task: "", check: false, },])
+const handleTaskAdd = (addTask) => {
+  let list = taskList
+  function taskAssign() {
+    setTaskList([...taskList, {task: addTask, check: false, },]);
+    setAddTask("") 
+  }
+
+  if (!list.some(t => t.task === addTask)) {
+    taskAssign()
   } else {
-    alert("Please fill in the empty task")
+    console.log("Task is already exists")
   }
 }
 
@@ -26,45 +34,64 @@ const handleTaskRemove = (index) => {
   setTaskList(list);
 }
 
-//the event checks to see if a task has been updated and stores it into state by checkign the index of the task
-const handleTaskChange = (e, index, type) => {
-  const {name, value, checked} = e.target
-  const list = [...taskList];
-  //sthe some method will check if a task already exists with the same name
-  if (!list.some(t => t.task === value)) {
-    localStorage.getItem(name, value)
-    localStorage.getItem(name, checked)
-   if (type === "task") {
-    list[index][name] = value;
-    localStorage.setItem(name, value)
-   } else {
-    list[index][name] = checked;
-    localStorage.setItem(name, checked)
-   }
-  } else {
-    alert("Task already exists")
-  }
-  setTaskList(list);
-}
+function searchTasks(taskList) {
+  return taskList.filter((singletask) => {
+    return searchParam.some((newItem) => {
+        return (
+          singletask[newItem]
+            .toString()
+            .toLowerCase()
+            .indexOf(search.toLowerCase()) > -1
+                );
+              });
+          });
+      }
 
-console.log(taskList)
+//the event checks to see if a task has been updated and stores it into state by checkign the index of the task
+// const handleTaskChange = (e, index, type) => {
+//   const {name, value, checked} = e.target
+//   const list = [...taskList];
+//   //the some method will check if a task already exists with the same name
+//   if (!list.some(t => t.task === value)) {
+//    if (type === "task") {
+//     list[index][name] = value;
+//    } else {
+//     list[index][name] = checked;
+//    }
+//   } else {
+//     alert("Task already exists")
+//   }
+//   setTaskList(list);
+// }
+
 
   return (
     <form className="App" autoComplete="off">
       <header className="App-header">
         <label htmlFor="task">Tasks</label>
-        {taskList.map((singleTask, index) => (
+        <input className='searchBox' style={{background: <FaSearchengin />}} type="search" placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
+        {searchTasks(taskList).map((singleTask, index) => (
         <div key={index}>
-          <input name="task" type="text" id="task" required value={singleTask.task} onChange = {(e) => handleTaskChange(e, index, "task")}/>
-          <input name="check" type="checkbox" id="check" required value={singleTask.check} onChange = {(e) => handleTaskChange(e, index, "checkbox")}/>
-          <div>
-            {taskList.length > 1 && <button type="button" onClick={() => handleTaskRemove(index)}>Remove Task</button>}
-          </div>
-          <div>
-            {taskList.length - 1 === index && <button type="button" onClick={handleTaskAdd}>Add Task</button>}
-          </div>
+          <ul style={{padding: "0px", margin: "8px", width: "250px"}}>
+          <li style={{listStyle: "none", height: "45px", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
+              <label name="task" type="text" 
+              className={complete === true ? "TaskLabelCheck" : "TaskLabel"}
+              id="task" required value={singleTask.task}>{singleTask.task}</label>
+              <div>
+              {taskList.length > 1 && <button type="button" className='Remove' onClick={() => handleTaskRemove(index)}><FaTimes /></button>}
+              <input name="check" type="checkbox" className='checkmark' id="check" required value={complete} onChange = {(e) => setComplete(e.target.checked)}/>
+              </div>
+            </li>
+          </ul>
+          
         </div>
         ))}
+          <div className='TaskForm'>
+          <input name="addTask" type="text" required id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
+          <br />
+          {/* {<label id="blankInputMessage" style={{display: taskList.length < 1 ? 'inline' : 'none'}}>{}</label>} */}
+            <Button id="add" text='Add' type="button" onClick={!addTask ? '' : () => handleTaskAdd(addTask)} />
+          </div>
       </header>
     </form>
   );
