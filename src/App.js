@@ -1,16 +1,31 @@
 import './App.css';
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaTimes, FaSearchengin } from 'react-icons/fa';
 import Button from './components/Button'
 
 
 function App() {
   //this is the starting state when the page loads
+
   const [taskList, setTaskList] = useState([]);
   const [addTask, setAddTask] = useState('');
   const [complete, setComplete] = useState(false);
   const [search, setSearch] = useState('');
   const [searchParam] = useState(["task", "check"]);
+
+  console.log(taskList)
+  console.log(setTaskList)
+
+  useEffect(() => {
+    localStorage.setItem('taskList', JSON.stringify(taskList));
+  }, [taskList]);
+
+  useEffect(() => {
+    const getTaskList = JSON.parse(localStorage.getItem('taskList'));
+    if (getTaskList) {
+      setTaskList(getTaskList);
+    }
+  }, []);
 
 //the event adds a new task into state
 const handleTaskAdd = (addTask) => {
