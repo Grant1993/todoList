@@ -13,26 +13,25 @@ function App() {
   const [search, setSearch] = useState('');
   const [searchParam] = useState(["task", "check"]);
 
-  console.log(taskList)
-  console.log(setTaskList)
-
   useEffect(() => {
-    localStorage.setItem('taskList', JSON.stringify(taskList));
-  }, [taskList]);
-
-  useEffect(() => {
+    console.log(localStorage.getItem('taskList'))
     const getTaskList = JSON.parse(localStorage.getItem('taskList'));
     if (getTaskList) {
       setTaskList(getTaskList);
     }
   }, []);
 
+const setTask =  useEffect(() => {
+    localStorage.setItem('taskList', JSON.stringify(taskList));
+  }, [taskList]);
+
 //the event adds a new task into state
 const handleTaskAdd = (addTask) => {
   let list = taskList
   function taskAssign() {
     setTaskList([...taskList, {task: addTask, check: false, },]);
-    setAddTask("") 
+    setAddTask("")
+    setTask()
   }
 
   if (!list.some(t => t.task === addTask)) {
@@ -105,7 +104,7 @@ function searchTasks(taskList) {
           <input name="addTask" type="text" required id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
           <br />
           {/* {<label id="blankInputMessage" style={{display: taskList.length < 1 ? 'inline' : 'none'}}>{}</label>} */}
-            <Button id="add" text='Add' type="button" onClick={!addTask ? '' : () => handleTaskAdd(addTask)} />
+            <Button id="add" text='Add' type="button" onClick={() => handleTaskAdd(addTask)} />
           </div>
       </header>
     </form>
