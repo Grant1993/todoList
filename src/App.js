@@ -82,8 +82,10 @@ function searchTasks(taskList) {
   return (
     <form className="App" autoComplete="off">
       <header className="App-header">
+
         <label htmlFor="task">Tasks</label>
-        <input className='searchBox' style={{background: <FaSearchengin />}} type="search" placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
+        <input className='searchBox' type="search" placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
+        <i className='fa fa-search-engin search'><FaSearchengin /></i>
         {searchTasks(taskList).map((singleTask, index) => (
         <div key={index}>
           <ul style={{padding: "0px", margin: "8px", width: "250px"}}>
@@ -100,12 +102,17 @@ function searchTasks(taskList) {
           
         </div>
         ))}
+        <div  style={{width: "750px"}}>
+        <div id='addList'>
           <div className='TaskForm'>
           <input name="addTask" type="text" required id="addTask" value={addTask} onChange = {(e) => setAddTask(e.target.value)}/>
           <br />
           {/* {<label id="blankInputMessage" style={{display: taskList.length < 1 ? 'inline' : 'none'}}>{}</label>} */}
             <Button id="add" text='Add' type="button" onClick={() => handleTaskAdd(addTask)} />
           </div>
+            <Button text='Add List' type="button" onClick="" />
+        </div>
+        </div>
       </header>
     </form>
   );
