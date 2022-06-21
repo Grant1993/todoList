@@ -37,7 +37,7 @@
   }
 }
 
-.TaskLabel {
+.taskLabelCheck {
   margin-right: 20px;
   margin-left:5px;
   font-family: Arial; 
@@ -46,22 +46,17 @@
   padding-top: 8px;
 }
 
-.TaskLabelCheck {
-  text-decoration: line-through;
-  margin-right: 20px;
-  margin-left:5px;
-  font-family: Arial; 
-  font-size: 21px;
-  float: left;
-  padding-top: 8px;
-}
-
-.checkmark {
+.completedTask {
   margin-top: 10px;
   float: right;
   height: 25px;
   width: 25px;
   background-color: #eee;
+
+}
+
+.completedTask:checked + .taskLabelCheck{
+  text-decoration: line-through;
 }
 
 .Remove {
@@ -97,6 +92,5 @@
 
 #addList {
   float: right;
-
 
 }
