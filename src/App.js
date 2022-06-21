@@ -61,6 +61,10 @@ function searchTasks(taskList) {
           });
       }
 
+// function setCheck(e) {
+//     setTaskList([...taskList, {task: addTask, check: e.checked, },]);
+// }
+
 //the event checks to see if a task has been updated and stores it into state by checkign the index of the task
 // const handleTaskChange = (e, index, type) => {
 //   const {name, value, checked} = e.target
@@ -90,16 +94,11 @@ function searchTasks(taskList) {
         <div key={index}>
           <ul style={{padding: "0px", margin: "8px", width: "250px"}}>
           <li style={{listStyle: "none", height: "45px", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
-              <label name="task" type="text" 
-              className={complete === true ? "TaskLabelCheck" : "TaskLabel"}
-              id="task" required value={singleTask.task}>{singleTask.task}</label>
-              <div>
-              {taskList.length > 1 && <button type="button" className='Remove' onClick={() => handleTaskRemove(index)}><FaTimes /></button>}
-              <input name="check" type="checkbox" className='checkmark' id="check" required value={complete} onChange = {(e) => setComplete(e.target.checked)}/>
-              </div>
+              <button type="button" className='Remove' onClick={() => handleTaskRemove(index)}><FaTimes /></button>
+              <input id="taskCheck" type="checkbox" className='completedTask' value={complete} onChange = {(e) => setComplete(e.target.checked)}/>
+              <label id="task" type="text" for="taskCheck" className='taskLabelCheck'>{singleTask.task}</label>
             </li>
           </ul>
-          
         </div>
         ))}
         <div  style={{width: "750px"}}>
