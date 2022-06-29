@@ -66,6 +66,7 @@ const handleTaskChange = (e, index) => {
   //the some method will check if a task already exists with the same name
   list[index][name] = checked;
   setTaskList(list)
+  setTask()
 }
 
 
