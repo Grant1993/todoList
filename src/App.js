@@ -9,12 +9,10 @@ function App() {
 
   const [taskList, setTaskList] = useState([]);
   const [addTask, setAddTask] = useState('');
-  const [complete, setComplete] = useState(false);
   const [search, setSearch] = useState('');
   const [searchParam] = useState(["task", "check"]);
 
   useEffect(() => {
-    console.log(localStorage.getItem('taskList'))
     const getTaskList = JSON.parse(localStorage.getItem('taskList'));
     if (getTaskList) {
       setTaskList(getTaskList);
@@ -61,26 +59,14 @@ function searchTasks(taskList) {
           });
       }
 
-// function setCheck(e) {
-//     setTaskList([...taskList, {task: addTask, check: e.checked, },]);
-// }
-
 //the event checks to see if a task has been updated and stores it into state by checkign the index of the task
-// const handleTaskChange = (e, index, type) => {
-//   const {name, value, checked} = e.target
-//   const list = [...taskList];
-//   //the some method will check if a task already exists with the same name
-//   if (!list.some(t => t.task === value)) {
-//    if (type === "task") {
-//     list[index][name] = value;
-//    } else {
-//     list[index][name] = checked;
-//    }
-//   } else {
-//     alert("Task already exists")
-//   }
-//   setTaskList(list);
-// }
+const handleTaskChange = (e, index) => {
+  const {name, checked} = e.target
+  const list = [...taskList];
+  //the some method will check if a task already exists with the same name
+  list[index][name] = checked;
+  setTaskList(list)
+}
 
 
   return (
@@ -95,7 +81,7 @@ function searchTasks(taskList) {
           <ul style={{padding: "0px", margin: "8px", width: "250px"}}>
           <li style={{listStyle: "none", height: "45px", backgroundColor: "lightGrey", color: "black", borderRadius: "5px"}} >
               <button type="button" className='Remove' onClick={() => handleTaskRemove(index)}><FaTimes /></button>
-              <input id="taskCheck" type="checkbox" className='completedTask' value={complete} onChange = {(e) => setComplete(e.target.checked)}/>
+              <input id="taskCheck" name="check" type="checkbox" className='completedTask' value={singleTask.check} onChange = {(e) => handleTaskChange(e, index, "checkbox")}/>
               <label id="task" type="text" for="taskCheck" className='taskLabelCheck'>{singleTask.task}</label>
             </li>
           </ul>
